@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+  grunt.registerTask('build', [ 'build' ]);
   grunt.registerTask('watch', [ 'watch' ]);
 
   grunt.initConfig({
@@ -9,6 +10,7 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
+          'app/global/init.js',
           'app/global/api.js',
           'app/global/eventlog.js',
           'app/global/activities.js',
@@ -125,9 +127,9 @@ module.exports = function(grunt) {
         }
       }
     },
-    watch: {
+    build: {
       app: {
-        files: ['app/*.js'],
+        files: ['app/*/*.js'],
         tasks: ['concat:app', 'uglify:app'],
         options: {
           livereload: true,
@@ -136,6 +138,34 @@ module.exports = function(grunt) {
       lib: {
         files: ['lib/*.js'],
         tasks: ['concat:lib', 'uglify:lib'],
+        options: {
+          livereload: true,
+        }
+      },
+      css: {
+        files: [
+          'less/config.less',
+          'less/default.less',
+          'less/app/*.less',
+          'less/libraries/*.less'
+        ],
+        tasks: ['less:style'],
+        options: {
+          livereload: true,
+        }
+      }
+    },
+    watch: {
+      app: {
+        files: ['app/*/*.js'],
+        tasks: ['concat:app'],
+        options: {
+          livereload: true,
+        }
+      },
+      lib: {
+        files: ['lib/*.js'],
+        tasks: ['concat:lib'],
         options: {
           livereload: true,
         }
