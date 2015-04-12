@@ -1,0 +1,52 @@
+<!-- FIXME: make "density" class be pulled from user profile setting -->
+<div id="sidebar" class="{{ config.web.display_density }}">
+  <nav id="sidebar-lists">
+    <ul id="sidebar-priority" class="sidebar-sortable">
+      {%- for tag in mailpile("tags", "mode=tree", "display=priority").result.tags -%}
+      {{ render_sidebar_tag(tag) }}
+      {%- endfor -%}
+    </ul>
+    <hr>
+    <ul id="sidebar-tag" class="sidebar-sortable">
+      {%- for tag in mailpile("tags", "mode=tree", "display=tag").result.tags -%}
+      {{ render_sidebar_tag(tag) }}
+      {%- endfor -%}
+    </ul>
+  </nav>
+  <nav id="sidebar-bottom" class="text-center">
+    <a href="#" id="button-sidebar-add" title="{{__("Add Tag")}}">
+      <span class="icon-plus"></span>
+      <span class="text">{{__("Add")}}</span>
+    </a>
+    <a href="#" id="button-sidebar-organize" data-message="{{__("Done")}}" data-state="done" title="{{__("Edit Sidebar")}}">
+      <span class="icon icon-settings"></span>
+      <span class="text">{{__("Organize")}}</span>
+    </a>
+  </nav>
+</div>
+
+
+<script id="template-sidebar-item" type="text/template">
+  <li id="sidebar-tag-<%= tid %>" data-tid="<%= tid %>" data-display_order="<%= display_order %>" class="sidebar-tags-draggable">
+    <a href="/in/<%= slug %>/" class="sidebar-tag color-<%= label_color %>" title="<%= name %>" data-tid="<%= tid %>">
+      <span class="icon <%= icon %>" style="color: <%= label_color %>;"></span>
+      <span class="name"><%= name %></span>
+      <span class="notification"></span>
+    </a>
+    <% if (subtags) { %>
+    <ul id="sidebar-subtags-<%= tag.tid %>" class="sidebar-subtags <% if (_.indexOf(config.web.subtags_collapsed, tag.tid) > -1) { %>hide<% } %>">
+      <% _.each(subtags, function(subtag, id) { %>
+      <li id="sidebar-tag-{{subtag.tid}}" data-tid="<%= subtag.tid %>" data-display_order="<%= subtag.display_order %>" class="sidebar-subtag sidebar-tags-draggable subtag-of-<%= tid %>">
+        <a href="{{subtag.url}}" class="sidebar-tag <% if (subtag.stats.new) %>has-unread<% } %>" title="<%= subtag.name %> <%= subtag.stats.all %>" data-tid="<%= subtag.tid %>">
+          <span class="icon <%= subtag.icon %>" style="color: <%= subtag.label_color %>;"></span>
+          <span class="name"><%= subtag.name %></span>
+          <% if (subtag.stats.new) %>
+          <span class="notification" id="sidebar-notifications-<%= tag.tid %>"><%= friendly_number(subtag.stats.new) %></span>
+          <% } %>
+        </a>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </li>
+</script>

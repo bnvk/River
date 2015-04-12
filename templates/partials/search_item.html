@@ -1,0 +1,40 @@
+<tr id="pile-message-<%= mid %>" class="result data-state="normal">
+  <td class="draggable"></td>
+  <td class="avatar">
+    <a href="<%= urls.thread %>"><img src="/img/avatar-default.png"></a>
+  </td>
+  <td class="from">
+    <a href="<%= urls.thread %>" title="<%= from.fn %> &lt;<%= from.address %>&gt;" class="item-from">
+      <% var conversation_count = 0 %>
+      <% if (from.fn) { %><%= from.fn %><% } else { %>(<%=__("No Name")%>)<% } %>
+      <% if (conversation_count > 1) { %><span class="conversation-count"><%=conversation_count%></span><% } %>
+      <% if (flags.replied) { %><span class="icon-reply"></span><% } %>
+      <% if (flags.forwarded) { %><span class="icon-forward"></span><% } %>
+    </a>
+  </td>
+  <td class="subject">
+    <% if (_.indexOf(['decrypted', 'mixed-decrypted'], crypto.encryption) > -1) { %>
+    <span class="icon-lock-closed color-08-green"></span>
+    <% } else if (_.indexOf(['error', 'mixed-error', 'missingkey', 'mixed-missingkey'], crypto.encryption) > -1) { %>
+    <span class="icon-lock-closed color-12-red"></span>
+    <% } %>
+    <span class="item-tags">
+    <% if (tag_tids) { _.each(tag_tids, function(tid, key) { %>
+      <% var tag = tags.get(tid) %>
+      <% if (tag && tag.attributes.label && tid != search.search_tag_ids) { %>
+      <span class="pile-message-tag color-<%= tag.attributes.label_color %>" id="pile-message-tag-<%= tid %>-<%= mid %>" data-tid="<%= tid %>" data-mid="<%= mid %>">
+        <span class="pile-message-tag-icon <%= tag.attributes.icon %>"></span>
+        <span class="pile-message-tag-name"><%= tag.attributes.name %></span>
+      </span>
+      <% } %>
+    <% }) } %>
+    </span>
+    <a class="item-subject" href="<%= urls.thread %>"><%= subject %></a>
+  </td>
+  <td class="date">
+    <a href="/search/dates:<%= timestamp %>/"><%= timestamp %></a>
+  </td>
+  <td class="checkbox">
+    <input type="checkbox" name="mid" value="<%= mid %>" class="item-checkbox">
+  </td>
+</tr>

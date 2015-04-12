@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <title>{{title}}</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" href="/css/river.css" />
+  <link rel="stylesheet" href="/css/print.css" media="print" />
+  <link rel="stylesheet" href="/css/index.css" />
+
+  <!-- Apple Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/img/logo-icon-57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/img/logo-icon-72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/img/logo-icon-114.png" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" id="basic-favicon" href="/img/logo-icon-32.png" />
+  <link rel="icon" id="basic-favicon" type="image/png" href="/img/logo-icon-32.png" />
+
+</head>
+<body>
+
+  {% include "partials/topbar.html" %}
+  {% include "partials/sidebar.html" %}
+  <div id="content" class="clearfix">
+    <div id="content-tools">
+      <nav class="sub-navigation clearfix" style="width: 827px;">
+        <ul class="left horizontal">
+          <li class="btn-display-refiner-display_all navigation-on">
+            <a href="/search/?order=rev-date&amp;q=in%3Ainbox" title="All messages"><span class="navigation-icon icon-inbox"></span><span class="navigation-text">All</span>
+            </a>
+          </li>    <li class="btn-display-refiner-unread">
+            <a href="/search/?order=rev-date&amp;q=in%3Ainbox&amp;qr=is%3Aunread" title="Unread messages"><span class="navigation-icon icon-new"></span><span class="navigation-text">Unread</span>
+            </a>
+          </li>    <li class="btn-display-refiner-has_attachment">
+            <a href="/search/?order=rev-date&amp;q=in%3Ainbox&amp;qr=has%3Aattachment" title="Messages with attachments"><span class="navigation-icon icon-attachment"></span><span class="navigation-text">Attachments</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="right horizontal">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" id="reply-datetime" href="#"><span class="navigation-icon icon-eye"></span> Display</a>
+            <ul id="menu1" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="display-density">
+              <li role="presentation">
+                <a class="change-view-size" data-view_size="snug" href="#">Snug</a>
+              </li>
+              <li role="presentation">
+                <a class="change-view-size" data-view_size="cozy" href="#">Cozy</a>
+              </li>
+              <li role="presentation">
+                <a class="change-view-size view-size-selected" data-view_size="comfy" href="#">Comfy</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="bulk-actions clearfix" style="width: 827px;">
+        <div id="bulk-actions-message" class="left" data-bulk_selected="Items Selected" data-bulk_selected_none="Click item or checkbox to select">
+          Click item or checkbox to select
+        </div>
+        <ul class="horizontal right">
+          <li class="hide">
+            <a class="bulk-action-tag" href="#" data-hasqtip="23" oldtitle="Assign Tags" title="">
+              <span class="icon icon-tag"></span>
+            </a>
+          </li>
+          <li class="hide">
+            <a class="bulk-action-archive" href="#" data-hasqtip="24" oldtitle="Archive Selection" title="">
+              <span class="icon icon-archive"></span>
+            </a>
+          </li>
+          <li class="hide">
+            <a class="bulk-action-unread" href="#" data-hasqtip="25" oldtitle="Unread" title="">
+              <span class="icon icon-notifications"></span>
+            </a>
+          </li>
+          <li class="hide">
+            <a class="bulk-action-read" href="#" data-hasqtip="26" oldtitle="Read" title="">
+              <span class="icon icon-checkmark"></span>
+            </a>
+          </li>
+          <li class="hide">
+            <a class="bulk-action-spam" href="#" data-hasqtip="27" oldtitle="Move to Spam" title="">
+              <span class="icon-spam"></span>
+            </a>
+          </li>
+          <li class="hide">
+            <a class="bulk-action-trash" href="#" data-hasqtip="28" oldtitle="Delete Messages" title="">
+              <span class="icon icon-trash"></span>
+            </a>
+          </li>
+          <li>
+            <input type="checkbox" id="pile-select-all-action" class="bulk-action-select-all" tabindex="-1">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="content-view">
+      <div class="content-view">
+        <table id="pile-results" class="{{ config.web.display_density }}">
+        <tbody>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script id="template-search-item" type="text/template">
+    {% include "partials/search_item.html" %}
+  </script>
+
+  <!-- JS App -->
+  <script src="/app/bundle.js"></script>
+
+</body>
+</html>
