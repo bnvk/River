@@ -1,3 +1,4 @@
+var fs = require('fs');
 var Hapi = require('hapi')
 var Good = require('good')
 var Path = require('path')
@@ -37,22 +38,66 @@ server.register({
 });
 
 
+var app_values = {
+  'config': {
+    'version': '0',
+    'timestamp': timestamp = new Date().getTime(),
+    'web': {
+      'display_density': 'comfy'
+    }
+  },
+  'title': 'River',
+  // Accessed old commands
+  'mailpile': function(val1) {
+    console.log('mailpile val1 ' + val1);
+  },
+  'get_ui_elements': function(region, state, url) {
+    console.log('get_ui_elements value ' + region);
+    console.log('get_ui_elements value ' + state);
+    console.log('get_ui_elements value ' + url);
+  },
+  // Inside of search_item_new
+  'show_avatar': function(from) {
+    return '/img/avatar-default.png';
+  },
+  'has_label_tags': function(tags, tag_tids) {
+    return false;
+  },
+  'nice_subject': function(metadata) {
+    console.log(metadata);
+    return 'Your message subject'
+  },
+  'elapsed_datetime': function(datetime) {
+    return 'just now';
+  }
+}
+
+// Mailpile Theme File
+app_values.theme = JSON.parse(fs.readFileSync('./theme.json', 'utf8'));
+console.log('Loaded theme for: ' + app_values.theme.name);
+
+
+
+
 // Routes
 // HTML
 server.route({
   method: 'GET',
   path: '/',
   handler: function(request, reply) {
-    timestamp = new Date().getTime()
-    reply.view('index', {
-      'config': {
-        'version': '0',
-        'timestamp': timestamp
-      },
-      'title': 'River'
-    });
+    reply.view('index', app_values);
   }
 });
+
+server.route({
+  method: 'GET',
+  path: '/in/{param*}',
+  handler: function(request, reply) {
+    reply.view('index', app_values);
+  }
+});
+
+
 
 // JS App
 server.route({
