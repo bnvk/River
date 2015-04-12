@@ -98,7 +98,6 @@ server.route({
 });
 
 
-
 // JS App
 server.route({
   method: 'GET',
@@ -116,7 +115,7 @@ server.route({
   path: '/css/{param*}',
   handler: {
       directory: {
-          path: 'css/'
+          path: 'static/css/'
       }
   }
 });
@@ -126,17 +125,7 @@ server.route({
   path: '/img/{param*}',
   handler: {
       directory: {
-          path: 'img/'
-      }
-  }
-});
-
-server.route({
-  method: 'GET',
-  path: '/lib/{param*}',
-  handler: {
-      directory: {
-          path: 'lib/'
+          path: 'static/img/'
       }
   }
 });
@@ -146,7 +135,7 @@ server.route({
   path: '/webfonts/{param*}',
   handler: {
       directory: {
-          path: 'webfonts/'
+          path: 'static/webfonts/'
       }
   }
 });
