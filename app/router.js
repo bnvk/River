@@ -18,21 +18,27 @@ var SearchView    = require('./views/search');
 var tagsCollection = new TagModels.Tags();
 var searchCollection = new SearchModels.SearchResult();
 
-
 // Views
 var sidebarView = new TagsView({ collection: tagsCollection, el: $('#sidebar-priority') });
-var searchView = new SearchView({ collection: searchCollection, el: $('#pile-results') });
 
 module.exports = Backbone.Router.extend({
   routes: {
-    "": "home",
-    "tags": "tags",
-    "tags/:id": "tagsView",
-    "contacts": "",
-    "contacts/:id": "contactsView"
+    ""              : "home",
+    "in/:tag" : "in",
+    "tags"          : "tags",
+    "tags/:id"      : "tagsView",
+    "contacts"      : "contacts",
+    "contacts/:id"  : "contactsView"
   },
   home: function() {
-    console.log("home");
+    console.log("route: home");
+    var searchView = new SearchView({ collection: searchCollection, el: $('#pile-results') });
+  },
+  in: function(tag) {
+    console.log("route: tag/:tag");
+    searchCollection.url = 'http://localhost:33411/api/0/search/?q=in:' + tag + '&order=rev-date';
+    var searchView = new SearchView({ collection: searchCollection, el: $('#pile-results') });
+
   },
   tags: function() {
     console.log("route: tags");

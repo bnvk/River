@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var $ = require('jquery');
 
 //var templates = require('./template.html');
-var template = _.template('<li><a href="/in/<%= slug %>/" class="sidebar-tag color-<%= label_color %>" title="<%= name %>" data-tid="<%= tid %>"><span class="icon <%= icon %>" style="color: <%= label_color %>;"></span><span class="name"><%= name %></span></a></li>');
+var template = _.template('<li><a href="#in/<%= slug %>" class="sidebar-tag color-<%= label_color %>" title="<%= name %>" data-tid="<%= tid %>"><span class="icon <%= icon %>" style="color: <%= label_color %>;"></span><span class="name"><%= name %></span></a></li>');
 
 
 var TagView = Backbone.View.extend({
@@ -70,9 +70,8 @@ module.exports = Backbone.View.extend({
     });
   },
   viewSearch: function(e) {
-    e.preventDefault();
-    console.log($(e));
-    var tid = $(e.currentTarget).data('tid');
-    alert('Sup view search: ' + tid);
+    //e.preventDefault();
+    //var tid = $(e.currentTarget).data('tid');
+    //alert('Sup view search: ' + tid);
   }
 });
