@@ -4,9 +4,34 @@ var Good = require('good')
 var Path = require('path')
 var Nunjucks = require('nunjucks')
 var NunjucksHapi = require('nunjucks-hapi')
+var argv = require('argv')
 
+
+// Args
+argv.option({
+  name: 'api',
+  short: 'a',
+  type: 'string',
+  description: 'Defines URL of API',
+  example: "'server.js --api=domain.com/api/0/' or 'server.js -a location:8888/api/testing/"
+});
+
+argv.option({
+  name: 'schema',
+  short: 's',
+  type: 'string',
+  description: 'Defines Schema of API',
+  example: "'server.js --schema=mailpile' or 'server.js -a testing"
+});
+
+
+// Run the imported options.
+var args = argv.run();
+
+
+// Create Server
 var server = new Hapi.Server()
-server.connection({ port: 3000 })
+server.connection({ port: 8888 })
 
 
 // Nunjucks templating
@@ -38,8 +63,19 @@ server.register({
 });
 
 
+if (args.options.api !== undefined) {
+  var api_url = args.options.api;
+  var api_schema = args.options.schema;
+} else {
+  var api_url = 'http://localhost:8888/tests-api/';
+  var api_schema = 'testing';
+}
+
+
 var app_values = {
   'config': {
+    'api': api_url,
+    'schema': api_schema,
     'version': '0',
     'timestamp': timestamp = new Date().getTime(),
     'web': {
@@ -77,8 +113,6 @@ app_values.theme = JSON.parse(fs.readFileSync('./theme.json', 'utf8'));
 console.log('Loaded theme for: ' + app_values.theme.name);
 
 
-
-
 // Routes
 // HTML
 server.route({
@@ -103,9 +137,9 @@ server.route({
   method: 'GET',
   path: '/app/{param*}',
   handler: {
-      directory: {
-          path: 'app/'
-      }
+    directory: {
+      path: 'app/'
+    }
   }
 });
 
@@ -114,9 +148,9 @@ server.route({
   method: 'GET',
   path: '/css/{param*}',
   handler: {
-      directory: {
-          path: 'static/css/'
-      }
+    directory: {
+      path: 'static/css/'
+    }
   }
 });
 
@@ -124,9 +158,9 @@ server.route({
   method: 'GET',
   path: '/img/{param*}',
   handler: {
-      directory: {
-          path: 'static/img/'
-      }
+    directory: {
+      path: 'static/img/'
+    }
   }
 });
 
@@ -134,12 +168,21 @@ server.route({
   method: 'GET',
   path: '/webfonts/{param*}',
   handler: {
-      directory: {
-          path: 'static/webfonts/'
-      }
+    directory: {
+      path: 'static/webfonts/'
+    }
   }
 });
 
+server.route({
+  method: 'GET',
+  path: '/tests-api/{param*}',
+  handler: {
+    directory: {
+      path: 'tests/api/'
+    }
+  }
+});
 
 
 // Good logging
