@@ -3,6 +3,7 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
+var schemas = require('../schemas');
 
 
 var Tag = Backbone.Model.extend({
@@ -24,7 +25,7 @@ var Tag = Backbone.Model.extend({
 
 var Tags = Backbone.Collection.extend({
   model: Tag,
-  url: 'http://localhost:33411/api/0/tags/',
+  url: config.api + schemas[config.schema].url_tags,
   parse: function(response) {
     return response.result.tags;
   }

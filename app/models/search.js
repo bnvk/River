@@ -3,6 +3,7 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
+var schemas = require('../schemas');
 
 
 var Item = Backbone.Model.extend({
@@ -44,7 +45,7 @@ var Item = Backbone.Model.extend({
 
 var Search = Backbone.Collection.extend({
   model: Item,
-  url: 'http://localhost:33411/api/0/search/?q=in:inbox&order=rev-date',
+  url: config.api + schemas[config.schema].url_search,
   search_tag_ids: [],
   parse: function(response) {
 
@@ -64,4 +65,3 @@ module.exports = {
     SearchItem: Item,
     SearchResult: Search
 };
-

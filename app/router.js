@@ -24,7 +24,7 @@ var sidebarView = new TagsView({ collection: tagsCollection, el: $('#sidebar-pri
 module.exports = Backbone.Router.extend({
   routes: {
     ""              : "home",
-    "in/:tag" : "in",
+    "in/:tag"       : "in",
     "tags"          : "tags",
     "tags/:id"      : "tagsView",
     "contacts"      : "contacts",
@@ -36,7 +36,7 @@ module.exports = Backbone.Router.extend({
   },
   in: function(tag) {
     console.log("route: tag/:tag");
-    searchCollection.url = 'http://localhost:33411/api/0/search/?q=in:' + tag + '&order=rev-date';
+    searchCollection.url = 'http://localhost:33411/api/0/search/?q=in:' + tag + '&order=rev-date&start=1&end=200';
     var searchView = new SearchView({ collection: searchCollection, el: $('#pile-results') });
 
   },
