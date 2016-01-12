@@ -3,7 +3,7 @@ River
 
 River (working name) is communication / collaboration app similar Slack that is open source that uses open protocols like IRC & Jabber underneath as well as self hosted (users signup at hosted-version.com). This allows an insane degree of interoperability with existing social graphs all in a beautiful user interface.
 
-What's unique is that River treats email as an async offline fallback for sending batches chat messages to an offline contact not just as a "notification" but a native messaging format. Additionally, this means supporting normal email messaging of contacts only available via email.
+What's unique with River is that it aims to treat email as an async offline fallback for sending batches of chat messages to an offline contact not just as a "notification" but a native messaging format. Additionally, this means supporting normal email messaging of contacts only available via email.
 
 The key here is to blur the lines between chat and email so that conversations can seamlessly ratchet between the two protocols depending on need and context, while never sacrificing a seamless experience for the River user who gains impeccable archiving, search and rich media integration.
 
@@ -40,20 +40,22 @@ Some existing tools in this space that could contribute to the architecture of a
 
 - Store both email & archived chat in the email format (maildir, mbox, eml) on disk
 - Use [notmuch][1] for indexing and search of archive but expose this over REST
-- Use [Let's Chat][2] as main codebase
-- Use [Shout IRC][3] [Slate IRC][4] node library
+- Use [elasticsearch][2] for indexing and search of archive
+- Use [Let's Chat][3] as main codebase
+- Use [Shout IRC][4] [Slate IRC][4] node library
 - Use [Converse.js][5] for Jabber/XMPP integration
 - Use OTR for sync encryption & PGP for aysnc & files
 - Build the interface as a HTML5 JS heavy app
 - Fork the interface for Mailpile and modify where needed (started in this repo)
 - Explore [SocketHub][6] as a server component that handles multiple protocols
+- Consider scaffolding JS out of Google's [Inbox SDK][7] it's well thought out + robust
 
 ## Similar Projects
 
 There are a few open source projects out there (that I am aware of) moving in this space of merging multiple chat protocols and/or combining email + chat clients:
 
-- [Caliopen][7] is a python server component + HTML5 front-end
-- [Kosmos][8] is a hybrid app that uses SocketHub and HTML5 front-end
+- [Caliopen][8] is a python server component + HTML5 front-end
+- [Kosmos][9] is a hybrid app that uses SocketHub and HTML5 front-end
 
 ---
 
@@ -63,5 +65,6 @@ There are a few open source projects out there (that I am aware of) moving in th
   [4]: https://github.com/slate/slate-irc
   [5]: http://conversejs.org
   [6]: https://github.com/sockethub/sockethub
-  [7]: https://caliopen.org
-  [8]: https://kosmos.org
+  [8]: https://www.inboxsdk.com
+  [8]: https://caliopen.org
+  [9]: https://kosmos.org

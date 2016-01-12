@@ -20,13 +20,14 @@ Another idea is to engineer the code as per a non client specific "spec" like th
 - Interop with other (non-Mailpile) email backends
 - Integration with chat protocols like IRC & Jabber
 - Provide a web based interface for [Pond](https://pond.imperialviolet.org) or other secure messaging backends
+- You can also read these [notes and ideas](IDEAS.md) that expand on those points
 
 This is currently *just* an experiment and in no way a commitment / promise of things to come!
 
 *WARNING: This repo is suuuuuuper rough and nowhere near anything anyone should even bother looking at. Seriously, don't waste your time reading any further. These notes are mostly for me as I experiment :P*
 
 
-### Requirements
+### Install Requirements
 
 The requirements your system will need in order to build & run River are
 
